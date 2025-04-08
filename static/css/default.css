@@ -1,0 +1,61 @@
+body {
+    background-color: #213555;
+    color: #F5EFE7;
+}
+
+button {
+    background: transparent;
+    border: none;
+    font-size:0;
+}
+
+.plus-icon {
+    width: 115px;
+    height: 115px;
+    content: url('/static/assets/img/plus-icon.png');
+}
+
+.plus-icon:hover {
+    content: url('/static/assets/img/plus-icon-hover.png');
+}
+
+.modal-content {
+    background-color: #3E5879;
+}
+
+.btn-primary, .btn-primary:active:focus {
+    background-color: #D8C4B6;
+    color: #213555;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #213555;
+    color: #D8C4B6;
+}
+
+.btn-close:focus {
+    box-shadow: none;
+}
+
+.task-entry {
+    background-color: #3E5879;
+}
+
+.task-checkbox {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.x-icon {
+    content: url('/static/assets/img/x-lg.svg');
+    width: 30px;
+    height: 30px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.x-icon:hover {
+    opacity: 1;
+}

@@ -1,10 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Flask Task</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Flask Task</title>
+    <!-- Load Bootstrap-Flask CSS here -->
+    {{ bootstrap.load_css() }}
+    <!-- Load default CSS -->
+    <link href="{{ url_for('static', filename='css/default.css') }}" rel="stylesheet"/>
 </head>
 <body>
-  Hello
+<div class="d-flex flex-column vh-100 text-center pb-3">
+    <div class="px-auto mb-auto">
+        <form method="post" id="task-form">
+            {% for task in tasks %}
+            <div class="container rounded task-entry d-flex flex-row gap-3 my-3 py-1">
+                {% if task['done'] %}
+                <input type="checkbox" name="{{ 'checkbox_' ~ task['id'] }}"
+                       class="form-check-input task-checkbox opacity-25"
+                       checked>
+                <h3 class="mb-1">
+                    <del class="opacity-25">{{ task['description'] }}</del>
+                </h3>
+                {% else %}
+                <input type="checkbox" name="{{ 'checkbox_' ~ task['id'] }}" class="form-check-input task-checkbox">
+                <h3 class="mb-1">
+                    {{ task['description'] }}
+                </h3>
+                {% endif %}
+                <!--                <div class="x-icon ms-auto my-auto">-->
+                <button type="submit" name="{{ 'delete_' ~ task['id'] }}" value="delete" class="ms-auto">
+                    <span class="x-icon"></span>
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"-->
+<!--                         class="bi bi-x-lg" viewBox="0 0 16 16">-->
+<!--                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>-->
+<!--                    </svg>-->
+                </button>
+                <!--                </div>-->
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+    <div class="mx-auto mt-auto">
+        <a href data-bs-toggle="modal" data-bs-target="#new-task-modal">
+            <div class="plus-icon mx-auto"></div>
+        </a>
+        <h5 class="pt-2">Create a new task...</h5>
+    </div>
+</div>
+
+<!-- New Task Modal -->
+<div class="modal fade" id="new-task-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">New Task</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="new-task-form">
+                    <textarea class="form-control" id="new-task-text" name="new_task_text" rows="3"
+                              placeholder="What do you need to get done?"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="new-task-form" class="btn btn-primary">Save task</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Load Bootstrap-Flask JavaScript here -->
+{{ bootstrap.load_js() }}
+
+<!-- Custom JavaScript -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+    // Clear new task text when modal is closed
+    $('#new-task-modal').on('hidden.bs.modal', function () {
+        $('#new-task-text').val('');
+    })
+
+    // Submit task form on checkbox action
+    $(document).ready(function(){
+        $("#task-form").on("change", "input:checkbox", function(){
+            $("#task-form").submit();
+        });
+    });
+
+    // Submit task form on 'X' click
+
+</script>
 </body>
 </html>
